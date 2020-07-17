@@ -1,169 +1,172 @@
-<div align="center">
-  <img src="./docs/images/logo/doccano.png">
-</div>
+# AIHR Pro-Label
+Text annotation tool. Annotation features for text classification, sequence labeling and sequence to sequence. Create labeled data for sentiment analysis, classification models, named entity recognition, and text summarization. 
 
-# doccano
+### Named entity recognition
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/98a0992c0a254d0ba23fd75631fe2907)](https://app.codacy.com/app/Hironsan/doccano?utm_source=github.com&utm_medium=referral&utm_content=doccano/doccano&utm_campaign=Badge_Grade_Dashboard)
-[![Build Status](https://travis-ci.com/doccano/doccano.svg?branch=master)](https://travis-ci.com/doccano/doccano)
+First demo is one of the sequence labeling tasks, named-entity recognition. You just select text spans and annotate it. App also supports shortcut keys, so you can quickly annotate text spans or highlight with your mouse.
 
-doccano is an open source text annotation tool for humans. It provides annotation features for text classification, sequence labeling and sequence to sequence tasks. So, you can create labeled data for sentiment analysis, named entity recognition, text summarization and so on. Just create a project, upload data and start annotating. You can build a dataset in hours.
+![Named Entity Recognition](./docs/entity.gif)
 
-## Demo
+### Doc Classification / Doc Sentiment
 
-You can try the [annotation demo](http://doccano.herokuapp.com).
+Second demo is one of the text classification tasks, topic classification. Since there may be more than one category, you can annotate multi-labels.
 
-![Demo image](./docs/images/demo/demo.gif)
+![Text Classification](./docs/classification.gif)
+
+### Machine translation
+
+Final demo is one of the sequence to sequence tasks, machine translation. Since there may be more than one responses in sequence to sequence tasks, you can create multi responses.
 
 ## Features
 
-- Collaborative annotation
-- Multi-language support
-- Mobile support
-- Emoji :smile: support
-- Dark theme
-- RESTful API
+-   Collaborative annotation
+-   Create (import) and export datasets
+-   View annotation progress statistics
+
+## Requirements
+
+-   Python 3.6+
+-   Django 2.1.7+
+-   Node.js 8.0+
+
+## Installation
+
+**Option 1: Pull production Docker image**
+
+```bash
+docker pull quinnpertuit/prolabel
+```
+**Option 2: Setup Python environment**
+
+Install dependencies:
+
+```bash
+sudo apt-get install libpq-dev
+pip install -r requirements.txt
+cd app
+```
+
+Start the webpack server so the frontend gets compiled continuously:
+
+```bash
+cd server/static
+npm install
+npm run build
+# npm start  # for developers
+cd ..
+```
+
+**Option 3: Pull the development Docker-Compose images**
+
+```bash
+docker-compose pull
+```
 
 ## Usage
 
-Two options to run doccano:
+### Start the development server
 
-- production,
-- development.
+#### Option 1: Docker image as a Container
 
-To use doccano, please follow:
-
-### Install dependencies
-
-You need to install dependencies:
-
-- [Git](https://git-scm.com),
-- [Docker](https://www.docker.com),
-- [Docker Compose](https://docs.docker.com/compose).
-
-### Get the code
-
-You need to clone the repository:
+Run a Docker container:
 
 ```bash
-$ git clone https://github.com/doccano/doccano.git
-$ cd doccano
-```
-
-_Note for Windows developers:_ Be sure to configure git to correctly handle line endings or you may encounter `status code 127` errors while running the services in future steps. Running with the git config options below will ensure your git directory correctly handles line endings.
-
-```bash
-git clone https://github.com/doccano/doccano.git --config core.autocrlf=input
-```
-
-### Production
-
-Set the superuser account credentials in the `docker-compose.prod.yml` file:
-
-```yml
-ADMIN_USERNAME: "admin"
-ADMIN_PASSWORD: "password"
-```
-
-If you use Google Analytics, set the tracking:
-
-```yml
-GOOGLE_TRACKING_ID: "UA-12345678-1"
-```
-
-Run doccano:
-
-```bash
-$ docker-compose -f docker-compose.prod.yml up
-```
-
-Go to <http://0.0.0.0/>.
-
-<!--
-
-### Docker
-
-As a one-time setup, create a Docker container for Doccano:
-
-```bash
-docker pull doccano/doccano
-docker container create --name doccano \
+docker run -d --rm --name prolabel \
   -e "ADMIN_USERNAME=admin" \
   -e "ADMIN_EMAIL=admin@example.com" \
   -e "ADMIN_PASSWORD=password" \
-  -p 8000:8000 doccano/doccano
+  -p 8000:8000 quinnpertuit1/prolabel
 ```
 
-Next, start Doccano by running the container:
+#### Option 2: Django development server
+
+Before running, make the migration. Run the following command:
 
 ```bash
-docker container start doccano
+python manage.py migrate
 ```
 
-To stop the container, run `docker container stop doccano -t 5`.
-All data created in the container will persist across restarts.
-
-Go to <http://127.0.0.1:8000/>.
-
--->
-
-### Development
-
-Set the superuser account credentials in the `docker-compose.dev.yml` file:
-
-```yml
-ADMIN_USERNAME: "admin"
-ADMIN_PASSWORD: "password"
-```
-
-Run Doccano:
+Create admin user. Run the following command:
 
 ```bash
-$ docker-compose -f docker-compose.dev.yml up
+python manage.py create_admin --noinput --username "admin" --email "admin@example.com" --password "password"
 ```
 
-Go to <http://127.0.0.1:3000/>.
+Developers can validate the project by running the tests:
 
-### Add annotators (optionally)
-
-If you want to add annotators/annotation approvers, see [Frequently Asked Questions](./docs/faq.md)
-
-## One-click Deployment
-
-| Service | Button |
-|---------|---|
-| AWS[^1]   | [![AWS CloudFormation Launch Stack SVG Button](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://console.aws.amazon.com/cloudformation/home?#/stacks/create/review?stackName=doccano&templateURL=https://s3-external-1.amazonaws.com/cf-templates-10vry9l3mp71r-us-east-1/2019290i9t-AppSGl1poo4j8qpq)  |
-| Azure | [![Deploy to Azure](https://azuredeploy.net/deploybutton.svg)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdoccano%2Fdoccano%2Fmaster%2Fazuredeploy.json)  |
-| GCP[^2] | [![GCP Cloud Run PNG Button](https://storage.googleapis.com/gweb-cloudblog-publish/images/run_on_google_cloud.max-300x300.png)](https://console.cloud.google.com/cloudshell/editor?shellonly=true&cloudshell_image=gcr.io/cloudrun/doccano&cloudshell_git_repo=https://github.com/doccano/doccano.git)  |
-| Heroku  | [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https%3A%2F%2Fgithub.com%2Fdoccano%2Fdoccano)  |
-
-> [^1]: (1) EC2 KeyPair cannot be created automatically, so make sure you have an existing EC2 KeyPair in one region. Or [create one yourself](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair). (2) If you want to access doccano via HTTPS in AWS, here is an [instruction](https://github.com/doccano/doccano/wiki/HTTPS-setting-for-doccano-in-AWS).
-> [^2]: Although this is a very cheap option, it is only suitable for very small teams (up to 80 concurrent requests). Read more on [Cloud Run docs](https://cloud.google.com/run/docs/concepts).
-
-## Contribution
-
-As with any software, doccano is under continuous development. If you have requests for features, please file an issue describing your request. Also, if you want to see work towards a specific feature, feel free to contribute by working towards it. The standard procedure is to fork the repository, add a feature, fix a bug, then file a pull request that your changes are to be merged into the main repository and included in the next release.
-
-Here are some tips might be helpful. [How to Contribute to Doccano Project](https://github.com/doccano/doccano/wiki/How-to-Contribute-to-Doccano-Project)
-
-## Citation
-
-```tex
-@misc{doccano,
-  title={{doccano}: Text Annotation Tool for Human},
-  url={https://github.com/doccano/doccano},
-  note={Software available from https://github.com/doccano/doccano},
-  author={
-    Hiroki Nakayama and
-    Takahiro Kubo and
-    Junya Kamura and
-    Yasufumi Taniguchi and
-    Xu Liang},
-  year={2018},
-}
+```bash
+python manage.py test server.tests
 ```
 
-## Contact
+Finally, to start the server:
 
-For help and feedback, please feel free to contact [the author](https://github.com/Hironsan).
-# prolabel-base
+```bash
+python manage.py runserver
+```
+
+Optional; change the bind ip and port:
+
+```bash
+python manage.py runserver <ip>:<port>
+```
+
+#### Option 3: Development Docker-Compose stack
+
+Use docker-compose to set up the webpack server, django server, database, all in one command:
+
+```bash
+docker-compose up
+```
+
+Open a Web browser and go to <http://127.0.0.1:8000/login/>. 
+
+### Create a project
+
+Log in with the superuser account. 
+
+Chose project type (classification, entity, or sequence-to-sequence.
+
+### Import Data
+
+After creating a project, you will see the "Import Data" page, or click `Import Data` button in the navigation bar. 
+
+You can upload the following types of files (depending on project type):
+
+-   `Text file`: one sentence/document per line
+-   `CSV file`: header with `"text"` as the first column or one-column csv file. If using labels the second column must be the labels.
+-   `Excel file`: header with `"text"` as the first column or one-column excel file. If using labels the second column must be the labels. Supports multiple sheets as long as format is the same.
+-   `JSON file`: each line contains a JSON object with a `text` key. JSON format supports line breaks rendering.
+
+> Notice: Pro-Label won't render line breaks in annotation page for sequence labeling task due to the indent problem, but the exported JSON file still contains line breaks.
+
+Any other columns (for csv/excel) or keys (for json) are preserved and will be exported in the `metadata` column.
+
+### Define labels
+
+Click `Labels` button in left bar to define custom labels. Specify label text, shortcut key, and colors.
+
+### Annotation
+
+Click the `Annotate Data` button in the navigation bar, and start to annotate the documents you uploaded.
+
+### Export Data
+
+After the annotation is complete (partially or in full), you can download the annotated data. Click the `Edit data` button in navigation bar, and then click `Export Data`.
+
+You can export data as CSV file or JSON file by clicking the button. 
+
+Exported documents have a metadata column or key, which will contain additional columns or keys from the imported document. For example:
+
+Input file:
+`import.json`
+
+```JSON
+{"text": "Working for IBM as a senior software engineer.", "meta": {"external_id": 1}}
+```
+
+Exported File:
+`output.json`
+
+```JSON
+{"doc_id": 2023, "text": "Designing autonomous systems for Skunkworks", "labels": ["Autonomy"], "username": "root", "meta": {"external_id": 1}}
+```
