@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% load static %}
+{% load render_bundle from webpack_loader %}
+
+{% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/swiper.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/aihr-img-shadow.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/aihr-font.css' %}">
+
+{% endblock %}
+
+{% block content %}
+<section class="hero" style="background-color:#2a2e2f">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-6">
+        <h1 class="title is-1 has-text-white">AIHR Pro-Label</h1>
+        <h2 class="subtitle is-4 has-text-white">Application for machine-learning tasks</h2>
+        <p>
+          <a href="{% url 'demo-named-entity-recognition' %}" class="button is-medium is-primary">
+            Launch
+          </a>
+        </p>
+      </div>
+      <div class="column is-6">
+        <figure class="image">
+          <img src="{% static 'assets/images/named_entity_recognition.png' %}">
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hero-body" style="background-image:linear-gradient(to bottom, #fafafa, #f3f3f3)">
+
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="columns is-vcentered">
+          <div class="column is-5 is-offset-1">
+            <figure class="image">
+              <img src="{% static 'assets/images/sentiment_analysis.png' %}" alt="Description">
+            </figure>
+          </div>
+          <div class="column is-5">
+            <h1 class="title is-2">
+              document classification
+            </h1>
+            <h2 class="subtitle is-4">
+              annotation for any document classification tasks.
+            </h2>
+            <br>
+            <p>
+              <a href="{% url 'demo-text-classification' %}" class="button is-primary">
+                Launch
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="columns is-vcentered">
+          <div class="column is-5 is-offset-1">
+            <figure class="image">
+              <img src="{% static 'assets/images/named_entity_recognition.png' %}" alt="Description">
+            </figure>
+          </div>
+          <div class="column is-5">
+            <h1 class="title is-2">
+              named entity recognition
+            </h1>
+            <h2 class="subtitle is-4">
+              a clean interface to tag named entity recognition, parts-of-speech, and semantic-roles.
+            </h2>
+            <br>
+            <p>
+              <a href="{% url 'demo-named-entity-recognition' %}" class="button is-primary">
+                Launch
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="columns is-vcentered">
+          <div class="column is-5 is-offset-1">
+            <figure class="image">
+              <img src="{% static 'assets/images/translation.png' %}" alt="Description">
+            </figure>
+          </div>
+          <div class="column is-5">
+            <h1 class="title is-2">
+              sequence-to-sequence
+            </h1>
+            <h2 class="subtitle is-4">
+              a slick interface to label any sequence-to-sequence tasks.
+            </h2>
+            <br>
+            <p>
+              <a href="{% url 'demo-translation' %}" class="button is-primary">
+                Launch
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</div>
+
+<div class="hero-body" style="background-image:linear-gradient(to bottom, #fafafa, #f3f3f3)">
+  <div class="container">
+
+    <div class="columns features">
+      <div class="column is-4">
+        <div class="card is-shady">
+          <div class="card-image">
+            <figure class="image is-4by3">
+                            <img src="{% static 'assets/images/sentiment_analysis.png' %}" alt="Description">
+
+              <img src="{% static 'assets/images/tile-image-1.jpg' %}" alt="AIHR" class="modal-button" data-target="modal-image2">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="content">
+              <h4>multiple annotators</h4>
+              <p>add users to add annotations for your projects.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="card is-shady">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="{% static 'assets/images/galaxy-2d-python.png' %}" alt="AIHR">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="content">
+              <h4>language independent</h4>
+              <p>aihr pro-label is language-independent; input / output in json, txt, csv, or xlsx</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4 modal-button" data-target="modal-image">
+        <div class="card is-shady">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img src="{% static 'assets/images/tile-image-2.jpg' %}" alt="AIHR">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="content">
+              <h4>auto-labeling</h4>
+              <p>machine learning model automatically annotates texts; annotators only required to correct errors.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-4">
+        <h2>
+          <strong class="has-text-white">aihr pro-label</strong>
+        </h2>
+        <ul>
+          <li>
+            <a href="">contact</a>
+          </li>
+        </ul>
+      </div>
+      <div class="column is-4">
+        <h2>
+          <strong class="has-text-white">tools</strong>
+        </h2>
+        <ul>
+          <li>
+            <a href="{% url 'demo-text-classification' %}">doc classification / doc sentiment</a>
+          </li>
+          <li>
+            <a href="{% url 'demo-named-entity-recognition' %}">entity labeling</a>
+          </li>
+          <li>
+            <a href="{% url 'demo-translation' %}">sequence-to-sequence</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="content has-text-centered">
+      <p>
+        pro-label by aihr</a>
+      </p>
+    </div>
+  </div>
+</footer>
+{% endblock %}
+
+{% block footer %}
+{% render_bundle 'index' 'js' %}
+{% endblock %}

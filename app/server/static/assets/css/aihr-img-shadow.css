@@ -1,0 +1,7 @@
+.is-6 img { 
+  box-shadow: inset 20px 6px 10px 0 #ffffff;
+  border-radius: 20px;
+  border-width: 2px;
+  border: 2px;
+  border-color: #ffffff !important;
+}

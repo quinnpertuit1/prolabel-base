@@ -1,0 +1,12 @@
+{
+    "engines": {
+        "node": "8.x"
+    },
+    "scripts": {
+        "heroku-postbuild": "sh tools/heroku.sh build"
+    },
+    "devDependencies": {
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.12"
+    }
+}
